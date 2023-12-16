@@ -15,9 +15,8 @@ class Solution {
         if ((q1Sum + q2Sum) % 2 != 0) return -1;
         wantSum = (q1Sum + q2Sum) / 2;
         int count = 0;
-        while(true) {
+        while(q1Sum != wantSum) {
             if (count == queue1.length * 4) return -1; // 한바퀴를 다 돌았지만 원소의 합을 같게 만들 수 없음.
-            if (q1Sum == wantSum) break;
             if (q1Sum > wantSum) {
                 q1Sum -= q1.peek();
                 q2.offer(q1.poll());
