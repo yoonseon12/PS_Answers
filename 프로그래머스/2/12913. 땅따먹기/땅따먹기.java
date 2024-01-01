@@ -1,6 +1,3 @@
-import java.util.Map;
-import java.util.HashMap;
-
 class Solution {
     public int solution(int[][] land) {
         int answer = 0;
