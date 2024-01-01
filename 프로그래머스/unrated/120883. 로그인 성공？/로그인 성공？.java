@@ -6,7 +6,6 @@ class Solution {
         for (String[] loginInfo : db) {
             if (Arrays.equals(id_pw, loginInfo)) {
                 answer = "login";
-                break;
             } else if (id_pw[0].equals(loginInfo[0])) {
                 answer = "wrong pw";
                 break;
