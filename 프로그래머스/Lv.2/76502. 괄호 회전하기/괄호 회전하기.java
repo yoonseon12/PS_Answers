@@ -35,4 +35,40 @@ class Solution {
         }
         return stack.isEmpty() ? true : false;
     }
+    
+    
+    
+    
+//     public boolean isBracket(String s) {
+// 			if (isBracket2(s, List.of('(',')')) &&
+// 				isBracket2(s, List.of('{','}')) &&
+// 				isBracket2(s, List.of('[',']'))) {
+// 				return true;
+// 			}
+// 			return false;
+// 		}
+
+// 		public boolean isBracket2(String s, List<Character> brackets) {
+// 			StringBuilder sb = new StringBuilder();
+// 			for (char c : s.toCharArray()) {
+// 				if (brackets.contains(c)) {
+// 					sb.append(c);
+// 				}
+// 			}
+// 			Stack<Character> stack = new Stack<>();
+// 			for (char c : sb.toString().toCharArray()) {
+// 				if (c == brackets.get(0)) {
+// 					stack.push(c);
+// 				} else {
+// 					if (stack.isEmpty()) {
+// 						return false;
+// 					} else {
+// 						stack.pop();
+// 					}
+// 				}
+// 			}
+// 			return stack.isEmpty() ? true : false;
+
+// 		}
+// 	}
 }
