@@ -12,14 +12,12 @@ public class Main {
 			queue.offer(i);
 		}
 
-		while (!queue.isEmpty()) {
-            sb.append(queue.poll()+" ");
-			if (queue.peek() == null) {
-				break;
-			}
+		while (queue.size() > 1) {
+			sb.append(queue.poll()+" ");
 			queue.offer(queue.poll());
 		}
+		sb.append(queue.poll());
 
-		System.out.println(sb.toString().trim());
+		System.out.println(sb);
 	}
 }
