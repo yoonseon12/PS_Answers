@@ -14,14 +14,10 @@ public class Main {
 			arr[i] = Integer.parseInt(st.nextToken());
 			if (i<m) sum += arr[i];
 		}
-		int lt = 0, rt = m-1;
 		long answer = sum;
-		while (rt < n-1) {
-			sum -= arr[lt];
-			sum += arr[rt+1];
-			answer = Math.max(answer, sum);
-			lt++;
-			rt++;
+		for (int i=m; i<n; i++) {
+			sum += (arr[i] - arr[i-m]);
+			answer = Math.max(sum, answer);
 		}
 		System.out.println(answer);
 	}
