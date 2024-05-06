@@ -1,57 +1,66 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-	static int[] dx = {-1, 1, 0, 0, -1,-1, 1, 1};
-	static int[] dy = {0, 0, -1, 1, 1, -1, 1, -1};
-	static boolean[][] visited;
-	static int W, H;
-	static int[][] map;
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
+    static int W, H;
+    static int[][] map;
+    static boolean[][] isVisit;
+    static int[] move_x = {0, 1, 1, 1, 0, -1, -1, -1};
+    static int[] move_y = {1, 1, 0, -1, -1, -1, 0, 1};
+    static final String END_INPUT_CONDITION = "0 0";
 
-		String str = "";
-		while (!(str = br.readLine()).equals("0 0")) {
-			StringTokenizer st = new StringTokenizer(str);
-			W = Integer.parseInt(st.nextToken());
-			H = Integer.parseInt(st.nextToken());
-			map = new int[H][W];
-			visited = new boolean[H][W];
-			for (int i=0; i<H; i++) {
-				st = new StringTokenizer(br.readLine());
-				for (int j=0; j<W; j++) {
-					map[i][j] = Integer.parseInt(st.nextToken());
-				}
-			}
+    public static void main(String[] args) throws IOException {
 
-			int count = 0;
-			for (int i=0; i<H; i++) {
-				for (int j=0; j<W; j++) {
-					if (!visited[i][j] && map[i][j] == 1) {
-						count++;
-						dfs(i, j);
-					}
-				}
-			}
-			sb.append(count+"\n");
-		}
+        String readLine = null;
+        StringBuilder sb = new StringBuilder();
+        
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            while ((readLine = br.readLine()) != null && !END_INPUT_CONDITION.equals(readLine)) {
+                StringTokenizer st = new StringTokenizer(readLine);
+                W = Integer.parseInt(st.nextToken());
+                H = Integer.parseInt(st.nextToken());
 
-		System.out.println(sb);
-	}
+                map = new int[H][W];
+                isVisit = new boolean[H][W];
 
-	private static void dfs(int x, int y) {
-		visited[x][y] = true;
-		for (int i=0; i<8; i++) {
-			int current_x = x + dx[i];
-			int current_y = y + dy[i];
+                for (int i=0; i<H; i++) {
+                    st = new StringTokenizer(br.readLine());
+                    for (int j=0; j<W; j++) {
+                        map[i][j] = Integer.parseInt(st.nextToken());
+                    }
+                }
 
-			if (current_x >= 0 && current_y >= 0 && current_x < H && current_y < W) {
-				if (!visited[current_x][current_y] && map[current_x][current_y] == 1) {
-					dfs(current_x, current_y);
-				}
-			}
-		}
-	}
+                int count= 0;
+                for (int i=0; i<H; i++) {
+                    for (int j=0; j<W; j++) {
+                        if (map[i][j] == 1 && !isVisit[i][j]) {
+                            count++;
+                            DFS(i,j);
+                        }
+                    }
+                }
+                sb.append(count+"\n");
+            }
+
+            System.out.println(sb.toString().trim());
+        }
+    }
+
+    private static void DFS(int x, int y) {
+        isVisit[x][y] = true;
+        for (int i=0; i<8; i++) {
+            int next_x = x + move_x[i];
+            int next_y = y + move_y[i];
+            if (isMoveLimit(next_x, next_y) && !isVisit[next_x][next_y] && map[next_x][next_y] == 1) {
+                DFS(next_x, next_y);
+            }
+        }
+    }
+
+    private static boolean isMoveLimit(int x, int y) {
+        return x >= 0 && x < H && y >= 0 && y < W;
+    }
 }
