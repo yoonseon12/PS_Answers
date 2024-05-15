@@ -14,28 +14,25 @@ public class Main {
             StringTokenizer st = new StringTokenizer(br.readLine());
             N = Integer.parseInt(st.nextToken());
             S = Integer.parseInt(st.nextToken());
-            arr = Arrays.stream(br.readLine().split(" "))
-                .mapToInt(Integer::parseInt)
-                .toArray();
-            
+            arr = new int[N+1];
+            st = new StringTokenizer(br.readLine());
+            for(int i=0; i<N; i++) {
+                arr[i] = Integer.parseInt(st.nextToken());
+            }
             int lt = 0;
             int rt = 0;
             int sum = 0;
             int count = 0;
-            while (rt < N) {
-                sum += arr[rt];
-                rt++;
-                count++;
+            while (lt <= N && rt <= N) {
                 if (sum >= S) {
                     result = Math.min(result, count);
-                    while (sum >= S) {
-                        sum -= arr[lt];
-                        count--;
-                        lt++;
-                        if (sum >= S) {
-                            result = Math.min(result, count);
-                        }
-                    }
+                    sum -= arr[lt];
+                    count--;
+                    lt++;
+                } else {
+                    sum += arr[rt];
+                    count++;
+                    rt++;
                 }
             }
 
