@@ -1,35 +1,33 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
+
+    static int count = 0;
 
     public static void main(String[] args) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             String str1 = br.readLine();
             String str2 = br.readLine();
-            Map<Character, Integer> alphabetCountMap1 = getAlphabetCountMap(str1);
-            Map<Character, Integer> alphabetCountMap2 = getAlphabetCountMap(str2);
+            int[] alphabetCount1 = getAlphabetCountArr(str1);
+            int[] alphabetCount2 = getAlphabetCountArr(str2);
 
-            int commonCount = 0;
-            for (int i='a'; i<='z'; i++) {
-                char key = (char)i;
-                if (alphabetCountMap1.containsKey(key) && alphabetCountMap2.containsKey(key)) {
-                    commonCount += (2 * Math.min(alphabetCountMap1.get(key), alphabetCountMap2.get(key)));
-                }
+            for (int i=0; i<26; i++) {
+                count += Math.abs(alphabetCount1[i]-alphabetCount2[i]);
             }
 
-            System.out.println(str1.length() + str2.length() - commonCount);
+            System.out.println(count);
         }
     }
 
-    private static Map<Character,Integer> getAlphabetCountMap(String str) {
-        Map<Character,Integer> map = new HashMap<>();
+    private static int[] getAlphabetCountArr(String str) {
+        int[] countArr = new int[26];
 
         for(int i=0; i<str.length(); i++) {
-            map.put(str.charAt(i), map.getOrDefault(str.charAt(i), 0) + 1);
+            countArr[str.charAt(i) - 'a']++;
         }
 
-        return map;
+        return countArr;
     }
 
 }
