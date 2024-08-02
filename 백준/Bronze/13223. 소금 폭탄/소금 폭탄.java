@@ -7,27 +7,29 @@ import java.time.format.DateTimeFormatter;
 public class Main {
     public static void main(String[] args) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            String currentTime = br.readLine();
-            String targetTime = br.readLine();
+            var currentTime = br.readLine();
+            var targetTime = br.readLine();
+
             if (currentTime.equals(targetTime)) {
                 System.out.println("24:00:00");
                 return;
             }
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            LocalTime localTime = LocalTime.parse(currentTime, formatter);
-            LocalTime targetLocalTime = LocalTime.parse(targetTime, formatter);
 
-            long currentSecond = localTime.toSecondOfDay();
-            long targetSecond = targetLocalTime.toSecondOfDay();
+            var formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+            var currentLocalTime = LocalTime.parse(currentTime, formatter);
+            var targetLocalTime = LocalTime.parse(targetTime, formatter);
+            var currentSecondOfDay = currentLocalTime.toSecondOfDay();
+            var targetSecondOfDay = targetLocalTime.toSecondOfDay();
 
-            long waitLocalSecond = 0;
-            if (targetSecond >= currentSecond) {
-                waitLocalSecond = targetSecond - currentSecond;
-            } else {
-                waitLocalSecond = (24 * 60 * 60 - currentSecond) + targetSecond;
+            var waitSecondOfDay = 0;
+            if (targetSecondOfDay > currentSecondOfDay) {
+                waitSecondOfDay = targetSecondOfDay - currentSecondOfDay;
+            } else if (targetSecondOfDay < currentSecondOfDay) {
+                waitSecondOfDay = (24 * 60 * 60 - currentSecondOfDay) + targetSecondOfDay;
             }
-            LocalTime waitTime = LocalTime.ofSecondOfDay(waitLocalSecond);
-            System.out.println(formatter.format(waitTime));
+
+            var toLocalTime = LocalTime.ofSecondOfDay(waitSecondOfDay);
+            System.out.println(toLocalTime.format(formatter));
         }
     }
 }
