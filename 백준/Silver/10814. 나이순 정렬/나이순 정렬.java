@@ -18,12 +18,7 @@ public class Main {
                 persons[i][1] = st.nextToken();
             }
 
-            Arrays.sort(persons, (p1, p2) -> {
-                if (p1[0].equals(p2[0])) {
-                    return 0;
-                }
-                return Integer.parseInt(p1[0]) - Integer.parseInt(p2[0]);
-            });
+            Arrays.sort(persons, (p1, p2) -> Integer.parseInt(p1[0]) - Integer.parseInt(p2[0]));
 
             for (String[] person : persons) {
                 System.out.println(person[0] + " " + person[1]);
