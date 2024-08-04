@@ -7,7 +7,7 @@ public class Main {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             N = Integer.parseInt(br.readLine());
 
-            Set<String> employeeSet = new LinkedHashSet<>();
+            Set<String> employeeSet = new TreeSet<>();
 
             for (int i = 0; i < N; i++) {
                 StringTokenizer st = new StringTokenizer(br.readLine());
@@ -19,10 +19,11 @@ public class Main {
                     employeeSet.add(name);
                 }
             }
+            
             List<String> employeeList = new ArrayList<>(employeeSet);
-            Collections.sort(employeeList, Collections.reverseOrder());
-
-            employeeList.forEach(System.out::println);
+            for (int i=employeeSet.size()-1; i>=0; i--) {
+                System.out.println(employeeList.get(i));
+            }
         }
     }
 }
