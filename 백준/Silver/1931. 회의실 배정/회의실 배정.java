@@ -6,32 +6,36 @@ import java.util.StringTokenizer;
 public class Main {
 
     static int N;
-    static int[][] arr;
+    static int[][] times;
+
     public static void main(String[] args) throws Exception {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             N = Integer.parseInt(br.readLine());
-            arr = new int[N][2];
-            for (int i = 0; i < N; i++) {
+            times = new int[N][2];
+            for (int i=0; i<N; i++) {
                 StringTokenizer st = new StringTokenizer(br.readLine());
-                arr[i][0] = Integer.parseInt(st.nextToken());
-                arr[i][1] = Integer.parseInt(st.nextToken());
+                times[i][0] = Integer.parseInt(st.nextToken());
+                times[i][1] = Integer.parseInt(st.nextToken());
             }
-            
-            Arrays.sort(arr, (a, b) -> {
-                if (a[1] == b[1]) {
-                    return Integer.compare(a[0], b[0]);
+
+            Arrays.sort(times, (e1, e2) -> {
+                if (e1[1] == e2[1]) {
+                    return Integer.compare(e1[0], e2[0]);
                 }
-                return Integer.compare(a[1], b[1]);
+                return Integer.compare(e1[1], e2[1]);
             });
 
             int count = 0;
             int end = 0;
-            for (int i = 0; i < N; i++) {
-                if (arr[i][0] >= end) { // 시작 시간이 종료 시간보다 크다면 -> 회의할 수 있음
+            for (int[] time : times) {
+                int start = time[0];
+                int endTime = time[1];
+                if (start >= end) {
                     count++;
-                    end = arr[i][1];
+                    end = endTime;
                 }
             }
+
             System.out.println(count);
         }
     }
