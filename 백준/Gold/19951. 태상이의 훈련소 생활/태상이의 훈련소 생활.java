@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Main {
 
     static int N, M;
-    static int[] arr, sums;
+    static int[] arr, delta;
 
     public static void main(String[] args) throws Exception{
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
@@ -17,18 +17,27 @@ public class Main {
             arr = Arrays.stream(br.readLine().split(" "))
                 .mapToInt(Integer::parseInt)
                 .toArray();
-            sums = new int[N+1];
 
+            delta = new int[N+2];
             for (int i=0; i<M; i++) {
                 st = new StringTokenizer(br.readLine());
                 int a = Integer.parseInt(st.nextToken());
                 int b = Integer.parseInt(st.nextToken());
                 int k = Integer.parseInt(st.nextToken());
-                buildDirt(a, b, k);
+
+                // 각 지시에 따른 변화량 기록
+                delta[a] += k;
+                delta[b+1] -= k;
             }
 
-            for(int i=0; i<N; i++) {
-                arr[i] += sums[i+1];
+            // 각 칸부터의 변화량을 각 칸에 기록
+            // sumDelta = new int[N+1];
+            int plus = 0;
+            for (int i=1; i<=N; i++) {
+                if (delta[i] != 0) {
+                    plus += delta[i];
+                }
+                arr[i-1] += plus;
             }
 
             System.out.println(arrayToString());
@@ -42,9 +51,4 @@ public class Main {
             .trim();
     }
 
-    private static void buildDirt(int a, int b, int k) {
-        for (int i=a; i<=b; i++) {
-            sums[i] += k;
-        }
-    }
 }
