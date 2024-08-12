@@ -1,27 +1,26 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 
     static int N, M;
     static int[] arr, sums;
-    
+
     public static void main(String[] args) throws Exception {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             N = Integer.parseInt(st.nextToken());
             M = Integer.parseInt(st.nextToken());
             arr = new int[N];
-            sums = new int[N];
-
+            sums = new int[N+1];
+            sums[0] = 0;
             String[] strArr = br.readLine().split(" ");
             int sum = 0;
             for (int i = 0; i < N; i++) {
                 int element = Integer.parseInt(strArr[i]);
                 arr[i] = element;
                 sum += element;
-                sums[i] = sum;
+                sums[i+1] = sum;
             }
 
             for (int k=0; k<M; k++) {
@@ -32,10 +31,10 @@ public class Main {
             }
         }
     }
-    
+
     public static int prefixSum(int i, int j) {
-        int end = sums[j-1];
-        int start = i-1 == 0 ? 0 : sums[i-2];
+        int end = sums[j];
+        int start = i == 0 ? 0 : sums[i-1];
         return end - start;
     }
 }
