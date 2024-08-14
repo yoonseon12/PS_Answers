@@ -25,32 +25,21 @@ public class Main {
 
     private static int toPointerArr() {
         int count = 0;
+        int sum = 0;
         int lt = 0;
-        int rt = 1;
-        int sum = arr[0];
-        while (rt <= arr.length) {
+        int rt = 0;
+
+        while (rt < N) {
+            sum+= arr[rt];
+            rt++;
+
+            while (sum > M) {
+                sum -= arr[lt];
+                lt++;
+            }
+
             if (sum == M) {
                 count++;
-
-                if (rt == arr.length) {
-                    break;
-                }
-
-                sum += arr[rt];
-                rt++;
-
-            } else if (sum > M) {
-                while (sum > M) {
-                    sum -= arr[lt];
-                    lt++;
-                }
-            } else {
-                if (rt == arr.length) {
-                    break;
-                }
-
-                sum += arr[rt];
-                rt++;
             }
         }
 
